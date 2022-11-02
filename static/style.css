@@ -1,0 +1,177 @@
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Source Sans Pro', 'Poppins', Helvetica, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+.navbar {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 70px;
+  z-index: 9999;
+  background-color: black;
+}
+.nav {
+  margin-right: 15%;
+}
+.navbar-header {
+  flex: 1 1 auto;
+  margin-left: 10%;
+  cursor: default;
+  display: flex;
+}
+.navbar-header a {
+  font-weight: bold; 
+  font-size: 1.25rem;
+  color: #fff;
+  text-decoration: none;
+}
+.nav a {
+  margin: 15px;
+  text-decoration: none;
+  border: none;
+  color: #9d9d9d;
+  transition: 0.2s;
+}
+.nav a:hover,
+.nav .active {
+  color: #fff;
+}
+.main-wrapper {
+  width: 100vw;
+  height: 100vh;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+.main-wrapper>div {
+  width: 100vw;
+  height: 100vh;
+  scroll-snap-align: start;
+}
+.opening-wrapper {
+  position: relative;
+  background-image: url(opening1.webp);
+  width: 100%;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.opening-wrapper span {
+  font-family: '优设标题黑';
+  position: absolute;
+  right: 15%;
+  top: 30%;
+  font-size: 5rem;
+  color: #fff;
+  text-align: right;
+}
+.content-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.content-wrapper h1 {
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+#home {
+  background-image: linear-gradient( 135deg, #65FDF0 10%, #1D6FA3 100%);
+}
+
+#home div {
+  margin: 100px;
+}
+
+#home p {
+  font-size: 1.25rem;
+}
+
+#docs {
+  background-image: linear-gradient( 135deg, #FFD26F 10%, #3677FF 100%);
+}
+
+#codec {
+  flex-direction: column;
+  gap: 20px;
+  background-color: #DFDBE5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='charlie-brown' fill='%2301c0f2' fill-opacity='0.4'%3E%3Cpath d='M9.8 12L0 2.2V.8l10 10 10-10v1.4L10.2 12h-.4zm-4 0L0 6.2V4.8L7.2 12H5.8zm8.4 0L20 6.2V4.8L12.8 12h1.4zM9.8 0l.2.2.2-.2h-.4zm-4 0L10 4.2 14.2 0h-1.4L10 2.8 7.2 0H5.8z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.input-output {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+}
+.input-box {
+  position: relative;
+  width: 400px;
+  height: 400px;
+}
+
+.input-box textarea {
+  resize: none;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  background-color: transparent;
+  border-radius: 5px;
+  outline: none;
+  font-size: 1em;
+  transition: 0.5s;
+  font-family: 'jetbrains mono';
+}
+
+.input-box span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 10px;
+  pointer-events: none;
+  font-size: 1.3em;
+  color: rgba(0, 0, 0, 0.4);
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+
+.input-box textarea:focus~span, 
+.input-box textarea:valid~span {
+  color: #00dfc4;
+  font-size: 1em;
+  transform: translateX(7px) translateY(-15px);
+  padding: 0 7px;
+  background-color: #fff;
+  border-left: 1px solid #00dfc4;
+  border-right: 1px solid #00dfc4;
+  letter-spacing: 0.2em;
+}
+
+.input-box textarea:focus,
+.input-box textarea:valid {
+  border: 1px solid #019c8a;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+}

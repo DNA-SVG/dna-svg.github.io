@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='hue.css') }}">
+  <title>DNA-SVG</title>
+</head>
+<body>
+  <div class="site-wrapper">
+    <div class="navbar">
+      <span class="navbar-header">
+        <svg t="1666790977023" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4988" width="25" height="25">
+          <path d="M392.533333 585.813333a42.666667 42.666667 0 0 0-60.16-2.133333A477.013333 477.013333 0 0 0 170.666667 938.666667a42.666667 42.666667 0 0 0 85.333333 0 390.4 390.4 0 0 1 134.4-292.693334 42.666667 42.666667 0 0 0 2.133333-60.16z m433.92 197.973334a463.36 463.36 0 0 0-68.266666-128A610.56 610.56 0 0 0 599.893333 512C695.466667 450.986667 853.333333 315.733333 853.333333 85.333333a42.666667 42.666667 0 0 0-85.333333 0c0 230.4-195.84 348.586667-256 379.306667A572.586667 572.586667 0 0 1 397.226667 384H512a42.666667 42.666667 0 0 0 0-85.333333H322.133333a400.64 400.64 0 0 1-42.666666-85.333334H640a42.666667 42.666667 0 0 0 0-85.333333H258.56A347.306667 347.306667 0 0 1 256 85.333333a42.666667 42.666667 0 0 0-85.333333 0c0 322.986667 311.466667 460.373333 324.693333 465.92A551.68 551.68 0 0 1 627.2 640H512a42.666667 42.666667 0 0 0 0 85.333333h189.013333a386.986667 386.986667 0 0 1 42.666667 85.333334H384a42.666667 42.666667 0 0 0 0 85.333333h381.44a352.426667 352.426667 0 0 1 2.56 42.666667 42.666667 42.666667 0 0 0 85.333333 0 448 448 0 0 0-9.386666-93.44 393.813333 393.813333 0 0 0-17.493334-61.44z" p-id="4989" fill="#ffffff"></path>
+        </svg>
+        <a href="#opening">DNA storage of SVG</a>
+      </span>
+      <div class="nav">
+        <a href="#home">HOME</a>
+        <a href="#docs">DOCS</a>
+        <a href="#codec">CODEC</a>
+        <a href="#about">ABOUT</a>
+      </div>
+    </div>
+    <div class="main-wrapper">
+      <div class="opening-wrapper" id="opening">
+        <span>
+          A<br>
+          Living<br>
+          BitStream
+        </span>
+      </div>
+      <div class="content-wrapper theBridge" id="home">
+        <div>
+          <h1>DNA存储</h1>
+          <p>
+            DNA 存储是目前热门的存储技术。目前对 DNA 存储的研究主要以通用数据存储为主，部分研究针对JPG 
+            等位图图像格式进行特殊优化，但并未涉及 SVG 等矢量图格式。本课题将结合 SVG 格式的特点，进行针对性编码方案设计，
+            从而为实现矢量图像的高效率 DNA 存储奠定基础。
+          </p>
+        </div>
+      </div>
+      <div class="content-wrapper blueHour" id="docs">
+        <h1>Documents</h1>
+      </div>
+      <div class="content-wrapper saltAndPepper" id="codec">
+        <h1>Codec</h1>
+        <div class="input-output">
+          <div class="input-box">
+            <textarea cols="30" rows="10" minlength="1" id="inputarea" required></textarea>
+            <span>input svg file</span>
+          </div>
+          <button id="btnencode">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" width="50" height="50">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
+            </svg>  
+          </button>
+          <div class="input-box">
+            <textarea cols="30" rows="10" minlength="1" id="outputarea" required></textarea>
+            <span>output</span>
+          </div>
+        </div>
+      </div>
+      <div class="content-wrapper returnToAir" id="about">
+        <h1>About</h1>
+      </div>
+    </div>
+  </div>
+  <script>
+    let btnencode = document.getElementById('btnencode');
+    let httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = function() {
+      if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+        document.getElementById('outputarea').value = httpRequest.responseText;
+      }
+    }
+    btnencode.onclick = function() {
+      let textarea = document.getElementById("inputarea");
+      let input_svg = textarea.value;
+      let url = "/codec";
+      httpRequest.open("POST", url, true);
+      httpRequest.send(input_svg);
+    }
+  </script>
+  <script>
+    var main = document.querySelector('.main-wrapper');
+    main.onscroll = function() {
+      var height = main.scrollTop;
+      var anchors = document.querySelectorAll('.nav a');
+      for (let index = 0; index < anchors.length; index++) {
+        const anchor = anchors[index];
+        if (height <= (index + 1.5) * window.innerHeight && height > (index+0.5)  * window.innerHeight) {
+          anchor.classList.add('active');
+        } else {
+          anchor.classList.remove('active');
+        }
+      }
+    }
+  </script>
+</body>
+</html>
