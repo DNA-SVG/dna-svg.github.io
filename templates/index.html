@@ -48,18 +48,27 @@
       <div class="content-wrapper saltAndPepper" id="codec">
         <h1>Codec</h1>
         <div class="input-output">
-          <div class="input-box">
-            <textarea cols="30" rows="10" minlength="1" id="inputarea" required></textarea>
-            <span>input svg file</span>
+          <div>
+            <div class="input-box">
+              <textarea cols="30" rows="10" minlength="1" id="inputarea-enc" required></textarea>
+              <span>input svg file</span>
+            </div>
+            <button class="codec-btn" id="encode-btn"><i></i><span>encode</span></button>
+            <div class="input-box">
+              <textarea cols="30" rows="10" minlength="1" id="outputarea-enc" required></textarea>
+              <span>output</span>
+            </div>
           </div>
-          <button id="btnencode">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" width="50" height="50">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
-            </svg>  
-          </button>
-          <div class="input-box">
-            <textarea cols="30" rows="10" minlength="1" id="outputarea" required></textarea>
-            <span>output</span>
+          <div>
+            <div class="input-box">
+              <textarea cols="30" rows="10" minlength="1" id="inputarea-dec" required></textarea>
+              <span>input DNA sequences</span>
+            </div>
+            <button class="codec-btn" id="decode-btn"><i></i><span>decode</span></button>
+            <div class="input-box">
+              <textarea cols="30" rows="10" minlength="1" id="outputarea-dec" required></textarea>
+              <span>output</span>
+            </div>
           </div>
         </div>
       </div>
@@ -69,19 +78,31 @@
     </div>
   </div>
   <script>
-    let btnencode = document.getElementById('btnencode');
+    let encode_btn = document.getElementById('encode-btn');
+    let decode_btn = document.getElementById('decode-btn');
     let httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = function() {
-      if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-        document.getElementById('outputarea').value = httpRequest.responseText;
+    httpRequest.onload = function() {
+      var action;
+      if (httpRequest.responseURL.endsWith('encode')) {
+        action = 'enc';
+      } else if (httpRequest.responseURL.endsWith('decode')) {
+        action = 'dec';
       }
+      document.getElementById('outputarea-' + action).value = httpRequest.responseText;
     }
-    btnencode.onclick = function() {
-      let textarea = document.getElementById("inputarea");
+    encode_btn.onclick = function() {
+      let textarea = document.getElementById("inputarea-enc");
       let input_svg = textarea.value;
-      let url = "/codec";
+      let url = "/codec/encode";
       httpRequest.open("POST", url, true);
       httpRequest.send(input_svg);
+    }
+    decode_btn.onclick = function() {
+      let textarea = document.getElementById("inputarea-dec");
+      let input_seq = textarea.value;
+      let url = "/codec/decode";
+      httpRequest.open("POST", url, true);
+      httpRequest.send(input_seq);
     }
   </script>
   <script>

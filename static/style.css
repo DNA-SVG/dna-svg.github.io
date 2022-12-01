@@ -118,15 +118,116 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   gap: 100px;
+}
+
+.input-output>div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.codec-btn {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 120px;
+  height: 50px;
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.15em;
+  font-size: 1.1em;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+.codec-btn:hover {
+  gap: 6px;
+}
+.codec-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #359ad8;
+  transform: scaleX(0);
+  transition: transform 0.5s ease-in-out;
+  transform-origin: right;
+}
+.codec-btn:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.codec-btn span {
+  display: inline-block;
+  z-index: 2;
+  transition: 0.5s ease-in-out;
+}
+.codec-btn:hover span {
+  color: #333;
+}
+
+.codec-btn i {
+  position: relative;
+  display: inline-block;
+  width: 0;
+  height: 2px;
+  transition: 0.3s;
+  background-color: transparent;
+}
+.codec-btn:hover i {
+  background-color: #333;
+  width: 20px;
+  height: 2px;
+}
+.codec-btn i::before {
+  content: '';
+  position: absolute;
+  background-color: transparent;
+  top: 0.5px;
+  right: 0;
+  width: 45%;
+  height: 2px;
+  rotate: 0;
+  transform-origin: right;
+}
+.codec-btn:hover i::before {
+  background-color: #333;
+  rotate: 40deg;
+  transition: 0.5s;
+  transition-delay: 0.3s;
+}
+.codec-btn i::after {
+  content: '';
+  position: absolute;
+  background-color: transparent;
+  top: -0.5px;
+  right: 0;
+  width: 45%;
+  height: 2px;
+  rotate: 0;
+  transform-origin: right;
+}
+.codec-btn:hover i::after {
+  background-color: #333;
+  rotate: -40deg;
+  transition: 0.5s;
+  transition-delay: 0.3s;
 }
 .input-box {
   position: relative;
   width: 400px;
-  height: 400px;
+  height: 300px;
 }
 
 .input-box textarea {
+  box-sizing: border-box;
   resize: none;
   height: 100%;
   width: 100%;

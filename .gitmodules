@@ -1,0 +1,3 @@
+[submodule "codec"]
+	path = codec
+	url = git@github.com:DNA-SVG/svg-codec.git
