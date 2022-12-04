@@ -1,17 +1,17 @@
 from flask import Flask, render_template, url_for, request
 import sys, os
-sys.path.append(os.getcwd()+'\\codec\\codec')
-import codec as cd
+import codec.codec.codec as cd
 print(sys.path)
 
 app = Flask(__name__)
 
 @app.route('/index')
+@app.route('/')
 def index():
     return render_template('index.html')
 
 @app.route('/codec/<action>', methods=['POST'])
-def codec(action=None):
+def do_codec(action=None):
     print(request.data)
     if action == 'encode':
         return cd.svg_to_dna(request.data.decode(encoding='utf-8'))
