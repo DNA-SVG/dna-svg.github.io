@@ -5,11 +5,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='hue.css') }}">
   <title>DNA-SVG</title>
 </head>
 <body>
   <div class="site-wrapper">
+    <a href="https://github.com/DNA-SVG" class="github-corner" aria-label="View source on GitHub">
+      <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#87c0fd; color:#151513; position: absolute; top: 0; border: 0; right: 0; z-index: 999;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg>
+    </a>
     <div class="navbar">
       <span class="navbar-header">
         <svg t="1666790977023" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4988" width="25" height="25">
@@ -21,7 +23,7 @@
         <a href="#home">HOME</a>
         <a href="#docs">DOCS</a>
         <a href="#codec">CODEC</a>
-        <a href="#about">ABOUT</a>
+        <!-- <a href="#about">ABOUT</a> -->
       </div>
     </div>
     <div class="main-wrapper">
@@ -32,64 +34,180 @@
           BitStream
         </span>
       </div>
-      <div class="content-wrapper theBridge" id="home">
+      <div class="content-wrapper" id="home">
+        <div class="blur"></div>
         <div>
-          <h1>DNA存储</h1>
+          <h1>SVG-DNA编码</h1>
           <p>
-            DNA 存储是目前热门的存储技术。目前对 DNA 存储的研究主要以通用数据存储为主，部分研究针对JPG 
-            等位图图像格式进行特殊优化，但并未涉及 SVG 等矢量图格式。本课题将结合 SVG 格式的特点，进行针对性编码方案设计，
-            从而为实现矢量图像的高效率 DNA 存储奠定基础。
+            根据国际数据公司（International Data Corporation, IDC）的预测，到2025年，全球每年产生的数据将从2016年的16.1ZB增长至163ZB[1]，呈现指数级上升趋势。
+            为了解决数据存储问题，DNA 存储应运而生。
+          </p>
+          <p>
+            DNA（Deoxyribonucleic Acid, 脱氧核糖核酸）是一种生物分子。在生物的遗传过程中，其遗传信息被编码为脱氧
+            核苷酸序列，连接成为DNA并长期储存。这意味着只要制定一套合适的编码规则，并人工合成DNA，就能使其成为人造
+            数据的载体。DNA作为存储介质，其优势在于信息密度高（理论上可超过 1EB/mm3）、保存时间长（在恶劣环境中的
+            半衰期超过500年）。随着DNA合成与测序技术的发展，基于DNA的存储手段越来越受到关注，且进展迅速。1999年，C
+            lelland等人使用类似生物体中“密码子”的编码方式，成功合成了编码23个英文字母，带有引物的DNA片段[4]；201
+            3年，Goldman等人使用Huffman编码，将739kB的文件编码为DNA序列，成功合成、测序，并以100%的精度成功还原
+            文件，存储密度达到约2.2PB/g。
+          </p>
+          <p>
+            在图像存储领域，Dimopoulou等人基于矢量量化（Vector Quantization）算法，提出了JPEG格式图像的DNA编码方式。然而，对于
+            矢量图格式，业界尚无相关研究。
+            SVG格式是一种基于XML格式的矢量图文件格式，相比位图具有存储空间小、无锯齿等优点。本文基于SVG文件的特点，提出
+            了一种将SVG图像编码为DNA序列的方案。针对DNA合成技术对于单链的长度有一定要求的问题，我们引入了长短链的拆分及合并
+            ，保证每条链的长度在100~200nt范围内。针对DNA合成有一定错误率的问题，我们引入了基于里德-所罗门码的纠错机制。
+          </p>
+          <p>
+            您可以通过<a href="#codec">codec</a>使用我们的编解码器。
           </p>
         </div>
       </div>
-      <div class="content-wrapper blueHour" id="docs">
-        <h1>Documents</h1>
+      <div class="content-wrapper" id="docs">
+        <div class="blur"></div>
+        <div>
+          <h1>Documents</h1>
+          <embed src="static/spec.pdf" type="application/pdf" style="position: relative; width: 60vw; height: 70vh;">
+        </div>
       </div>
-      <div class="content-wrapper saltAndPepper" id="codec">
-        <h1>Codec</h1>
-        <div class="input-output">
-          <div>
-            <div class="input-box">
-              <textarea cols="30" rows="10" minlength="1" id="inputarea-enc" required></textarea>
-              <span>input svg file</span>
+      <div class="content-wrapper" id="codec">
+        <div class="blur"></div>
+        <div class="modal" id="myModal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <span class="close">&times;</span>
+              <h2></h2>
             </div>
-            <button class="codec-btn" id="encode-btn"><i></i><span>encode</span></button>
-            <div class="input-box">
-              <textarea cols="30" rows="10" minlength="1" id="outputarea-enc" required></textarea>
-              <span>output</span>
+            <div class="modal-body">
+              <div>
+                <p>simple encoding:</p>
+                <div class="simple-wrapper">
+                  <input type="checkbox" class="exp" id="exp1">
+                  <div class="simple">
+                    <label class="expand-btn hide" for="exp1"></label>
+                    a
+                  </div>
+                </div>
+                <p class="count"></p>
+              </div>
+              <div class="svg-preview"></div>
             </div>
           </div>
-          <div>
-            <div class="input-box">
-              <textarea cols="30" rows="10" minlength="1" id="inputarea-dec" required></textarea>
-              <span>input DNA sequences</span>
+        </div>
+        <h1>Codec</h1>
+        <div class="codec-option">
+          <ul>
+            <li class="active">
+              <span onclick="switch_codec(1)">Encoder</span>
+            </li>
+            <li>
+              <span onclick="switch_codec(2)">Decoder</span>
+            </li>
+            <div class="nav-box"></div>
+          </ul>
+        </div>
+        <div class="codec-wrapper">
+          <div id="encode">
+            <div>
+              <div class="upload-option">
+                <ul>
+                  <li class="active"><span onclick="switch_upload(1)">Text</span></li>
+                  <li><span onclick="switch_upload(2)">File</span></li>
+                </ul>
+              </div>
+              <div class="input-box s">
+                <textarea wrap="off" cols="30" rows="10" minlength="1" id="inputarea-enc" required></textarea>
+                <span>input svg file</span>
+                <button class="clear-btn" type="button" onclick="myClear('inputarea-enc')">&times;</button>
+                <button class="copy-btn" type="button" onclick="myCopy('inputarea-enc')">
+                  <svg t="1674105611979" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3218" width="1.3em" height="1.3em"><path d="M720 192h-544A80.096 80.096 0 0 0 96 272v608C96 924.128 131.904 960 176 960h544c44.128 0 80-35.872 80-80v-608C800 227.904 764.128 192 720 192z m16 688c0 8.8-7.2 16-16 16h-544a16 16 0 0 1-16-16v-608a16 16 0 0 1 16-16h544a16 16 0 0 1 16 16v608z" p-id="3219" fill="#bfbfbf"></path><path d="M848 64h-544a32 32 0 0 0 0 64h544a16 16 0 0 1 16 16v608a32 32 0 1 0 64 0v-608C928 99.904 892.128 64 848 64z" p-id="3220" fill="#bfbfbf"></path><path d="M608 360H288a32 32 0 0 0 0 64h320a32 32 0 1 0 0-64zM608 520H288a32 32 0 1 0 0 64h320a32 32 0 1 0 0-64zM480 678.656H288a32 32 0 1 0 0 64h192a32 32 0 1 0 0-64z" p-id="3221" fill="#bfbfbf"></path></svg>
+                </button>
+              </div>
+              <div class="input-file hide">
+                <div class="file-wrapper">
+                  <span>select an svg file: </span>
+                  <input type="file" accept=".svg, .xml">
+                </div>
+                <div class="file-button-wrapper"><button type="submit" onclick="handleFile()">Upload</button></div>
+              </div>
             </div>
-            <button class="codec-btn" id="decode-btn"><i></i><span>decode</span></button>
+            <div class="btn-wrapper">
+              <button class="codec-btn" id="encode-btn"><i></i><span>encode</span></button>
+              <button class="modal-btn" id="compare"><span>compare</span></button>
+            </div>
             <div class="input-box">
-              <textarea cols="30" rows="10" minlength="1" id="outputarea-dec" required></textarea>
+              <textarea wrap="off" cols="30" rows="10" minlength="1" id="outputarea-enc" required></textarea>
               <span>output</span>
+              <button class="clear-btn" type="button" onclick="myClear('outputarea-enc')">&times;</button>
+              <button class="copy-btn" type="button" onclick="myCopy('outputarea-enc')">
+                <svg t="1674105611979" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3218" width="1.3em" height="1.3em"><path d="M720 192h-544A80.096 80.096 0 0 0 96 272v608C96 924.128 131.904 960 176 960h544c44.128 0 80-35.872 80-80v-608C800 227.904 764.128 192 720 192z m16 688c0 8.8-7.2 16-16 16h-544a16 16 0 0 1-16-16v-608a16 16 0 0 1 16-16h544a16 16 0 0 1 16 16v608z" p-id="3219" fill="#bfbfbf"></path><path d="M848 64h-544a32 32 0 0 0 0 64h544a16 16 0 0 1 16 16v608a32 32 0 1 0 64 0v-608C928 99.904 892.128 64 848 64z" p-id="3220" fill="#bfbfbf"></path><path d="M608 360H288a32 32 0 0 0 0 64h320a32 32 0 1 0 0-64zM608 520H288a32 32 0 1 0 0 64h320a32 32 0 1 0 0-64zM480 678.656H288a32 32 0 1 0 0 64h192a32 32 0 1 0 0-64z" p-id="3221" fill="#bfbfbf"></path></svg>
+              </button>
+            </div>
+          </div>
+          <div class="hide" id="decode">
+            <div class="input-box">
+              <textarea wrap="off" cols="30" rows="10" minlength="1" id="inputarea-dec" required></textarea>
+              <span>input DNA sequences</span>
+              <button class="clear-btn" type="button" onclick="myClear('inputarea-dec')">&times;</button>
+              <button class="copy-btn" type="button" onclick="myCopy('inputarea-dec')">
+                <svg t="1674105611979" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3218" width="1.3em" height="1.3em"><path d="M720 192h-544A80.096 80.096 0 0 0 96 272v608C96 924.128 131.904 960 176 960h544c44.128 0 80-35.872 80-80v-608C800 227.904 764.128 192 720 192z m16 688c0 8.8-7.2 16-16 16h-544a16 16 0 0 1-16-16v-608a16 16 0 0 1 16-16h544a16 16 0 0 1 16 16v608z" p-id="3219" fill="#bfbfbf"></path><path d="M848 64h-544a32 32 0 0 0 0 64h544a16 16 0 0 1 16 16v608a32 32 0 1 0 64 0v-608C928 99.904 892.128 64 848 64z" p-id="3220" fill="#bfbfbf"></path><path d="M608 360H288a32 32 0 0 0 0 64h320a32 32 0 1 0 0-64zM608 520H288a32 32 0 1 0 0 64h320a32 32 0 1 0 0-64zM480 678.656H288a32 32 0 1 0 0 64h192a32 32 0 1 0 0-64z" p-id="3221" fill="#bfbfbf"></path></svg>
+              </button>
+            </div>
+            <div class="btn-wrapper">
+              <button class="codec-btn" id="decode-btn"><i></i><span>decode</span></button>
+              <button class="modal-btn" id="preview"><span>preview</span></button>
+            </div>
+            <div class="input-box">
+              <textarea wrap="off" cols="30" rows="10" minlength="1" id="outputarea-dec" required></textarea>
+              <span>output</span>
+              <button class="clear-btn" type="button" onclick="myClear('outputarea-dec')">&times;</button>
+              <button class="copy-btn" type="button" onclick="myCopy('outputarea-dec')">
+                <svg t="1674105611979" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3218" width="1.3em" height="1.3em"><path d="M720 192h-544A80.096 80.096 0 0 0 96 272v608C96 924.128 131.904 960 176 960h544c44.128 0 80-35.872 80-80v-608C800 227.904 764.128 192 720 192z m16 688c0 8.8-7.2 16-16 16h-544a16 16 0 0 1-16-16v-608a16 16 0 0 1 16-16h544a16 16 0 0 1 16 16v608z" p-id="3219" fill="#bfbfbf"></path><path d="M848 64h-544a32 32 0 0 0 0 64h544a16 16 0 0 1 16 16v608a32 32 0 1 0 64 0v-608C928 99.904 892.128 64 848 64z" p-id="3220" fill="#bfbfbf"></path><path d="M608 360H288a32 32 0 0 0 0 64h320a32 32 0 1 0 0-64zM608 520H288a32 32 0 1 0 0 64h320a32 32 0 1 0 0-64zM480 678.656H288a32 32 0 1 0 0 64h192a32 32 0 1 0 0-64z" p-id="3221" fill="#bfbfbf"></path></svg>
+              </button>
             </div>
           </div>
         </div>
       </div>
-      <div class="content-wrapper returnToAir" id="about">
+      <!-- <div class="content-wrapper" id="about">
+        <div class="blur"></div>
         <h1>About</h1>
-      </div>
+      </div> -->
     </div>
   </div>
   <script>
-    let encode_btn = document.getElementById('encode-btn');
-    let decode_btn = document.getElementById('decode-btn');
     let httpRequest = new XMLHttpRequest();
     httpRequest.onload = function() {
-      var action;
-      if (httpRequest.responseURL.endsWith('encode')) {
-        action = 'enc';
-      } else if (httpRequest.responseURL.endsWith('decode')) {
-        action = 'dec';
+      var responseText = httpRequest.responseText;
+      if (responseText == null || responseText === "") {
+        alert("Invalid or empty input!")
+        return;
       }
-      document.getElementById('outputarea-' + action).value = httpRequest.responseText;
+      var responseURL = httpRequest.responseURL;
+      if (responseURL.endsWith("simple")) {
+        // document.querySelector(".modal-body .simple").innerHTML = responseText;
+        var simple = document.querySelector(".modal-body .simple");
+        document.querySelector(".modal-body .count").innerHTML = 'NT used(simple): ' + responseText.replaceAll('\n', '').length;
+        document.querySelector(".modal-body .count").innerHTML += '<br>NT used(optimized): ' + document.getElementById('outputarea-enc').value.replaceAll('\n', '').length;
+        simple.childNodes[2].nodeValue = responseText;
+        if (simple.scrollHeight > simple.clientHeight) {
+          document.querySelector(".expand-btn").classList.remove("hide");
+        } else {
+          document.querySelector(".expand-btn").classList.add("hide");
+        }
+      } else {
+        var action;
+        if (responseURL.endsWith('encode')) {
+          action = 'enc';
+        } else if (responseURL.endsWith('decode')) {
+          action = 'dec';
+        }
+        document.getElementById('outputarea-' + action).value = responseText;
+      }
     }
+  </script>
+  <script>
+    let encode_btn = document.getElementById('encode-btn');
+    let decode_btn = document.getElementById('decode-btn');
     encode_btn.onclick = function() {
       let textarea = document.getElementById("inputarea-enc");
       let input_svg = textarea.value;
@@ -120,5 +238,123 @@
       }
     }
   </script>
-</body>
+  <script>
+    function switch_codec(num) {
+      var btn_1 = document.querySelector(".codec-option ul").children[0];
+      var btn_2 = document.querySelector(".codec-option ul").children[1];
+      var encode_frame = document.getElementById("encode");
+      var decode_frame = document.getElementById("decode");
+      if (num == 1) {
+        encode_frame.classList.remove('hide');
+        decode_frame.classList.add('hide');
+        btn_1.classList.add('active');
+        btn_2.classList.remove('active');
+      } else {
+        encode_frame.classList.add('hide');
+        decode_frame.classList.remove('hide');
+        btn_1.classList.remove('active');
+        btn_2.classList.add('active');
+      }
+    }
+  </script>
+  <script>
+    function switch_upload(num) {
+      var btn_str = document.querySelector(".upload-option ul").children[0];
+      var btn_file = document.querySelector(".upload-option ul").children[1];
+      var input_str = document.querySelector("#encode .input-box");
+      var input_file = document.querySelector("#encode .input-file");
+      if (num === 1) {
+        input_str.classList.remove('hide');
+        input_file.classList.add('hide');
+        btn_str.classList.add('active');
+        btn_file.classList.remove('active');
+      } else {
+        input_str.classList.add('hide');
+        input_file.classList.remove('hide');
+        btn_str.classList.remove('active');
+        btn_file.classList.add('active');
+      }
+    }
+  </script>
+  <script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+    
+    // Get the button that opens the modal
+    var compare_btn = document.getElementById("compare");
+    var preview_btn = document.getElementById("preview");
+    
+    // Get the <span> element that closes the modal
+    var close_icon = document.getElementsByClassName("close")[0];
+    
+    var modal_head_tile = document.querySelector(".modal h2");
+
+    var div_compare = document.querySelectorAll(".modal-body>div")[0];
+    var div_preview = document.querySelectorAll(".modal-body>div")[1];
+    // When the user clicks the button, open the modal 
+    preview_btn.onclick = function() {
+      div_compare.style.display = "none";
+      div_preview.style.display = "flex";
+      modal_head_tile.innerHTML = "Image Preview";
+      let textarea = document.getElementById("outputarea-dec");
+      let output_svg = textarea.value;
+      div_preview.innerHTML = output_svg;
+      const _svg = document.querySelector('.modal-body div svg');
+      _svg.setAttribute("width", "400px");
+      modal.style.display = "block";
+    }
+    compare_btn.onclick = function() {
+      div_compare.style.display = "block";
+      div_preview.style.display = "none";
+      modal_head_tile.innerHTML = "Encoding Comparism";
+      document.getElementById("exp1").checked = false;
+      let textarea = document.getElementById("inputarea-enc");
+      if (textarea.value == null || textarea.value === '') {
+        alert("input or upload svg file first!");
+        return;
+      } else {
+        let url = "/codec/simple";
+        httpRequest.open("POST", url, true);
+        httpRequest.send(textarea.value);
+        modal.style.display = "block";
+      }
+    }
+    close_icon.onclick = function() {
+      modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    </script>
+    <script>
+      function handleFile() {
+        document.getElementById("inputarea-enc").value = '';
+        var files = document.querySelector(".file-wrapper input").files;
+        if (files.length === 0) {
+          alert("please select file");
+          return;
+        }
+        const reader = new FileReader()
+        reader.onload = function() {
+          document.getElementById("inputarea-enc").value = reader.result;
+        };
+        reader.readAsText(files[0]);
+      }
+    </script>
+    <script>
+      function myCopy(elid) {
+        var el = document.getElementById(elid);
+        el.select();
+        document.execCommand("Copy");
+      }
+      function myClear(elid) {
+        var el = document.getElementById(elid);
+        el.value = '';
+      }
+    </script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.8/pdfobject.min.js"></script>
+    <script>PDFObject.embed("/static/spec.pdf", "#specpdf");</script> -->
+  </body>
 </html>
